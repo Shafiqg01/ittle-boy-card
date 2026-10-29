@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Make your baby shower card</title>
+<meta name="theme-color" content="#bfe0f5">
+<link rel="stylesheet" href="/fonts.css">
+<style>
+:root { --ink: #33415c; --accent: #4a90c8; --accent-deep: #2f6fa3; --soft: #eaf5fc; --line: #d6e7f3; --on-bg: #4f3624; --head: 'Fredoka', system-ui, sans-serif;
+  --bg: radial-gradient(circle at 15% 8%, rgba(255,255,255,.6), transparent 35%), linear-gradient(170deg, #a9d6f2, #d7eefa 45%, #fff6e6 90%); }
+body.theme-space { --accent: #e8604c; --accent-deep: #c2452f; --soft: #eef2ff; --line: #dfe3f6; --on-bg: #fff3d6; --head: 'Baloo 2', system-ui, sans-serif;
+  --bg: radial-gradient(circle at 80% 10%, rgba(242,184,75,.25), transparent 30%), radial-gradient(circle at 10% 60%, rgba(79,195,201,.18), transparent 35%), linear-gradient(170deg, #0f1638, #1b2550 50%, #34407a); }
+body.theme-sailor { --accent: #d9534f; --accent-deep: #b03e3a; --soft: #e6f6f8; --line: #cfeaf0; --on-bg: #1d4f73; --head: 'Pacifico', cursive;
+  --bg: radial-gradient(circle at 85% 8%, rgba(255,255,255,.6), transparent 30%), linear-gradient(170deg, #8fd3e8, #c9eef3 45%, #fde3c8 85%, #f2deb0); }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: #cfe9f8; }
+body { margin: 0; min-height: 100vh; font-family: 'Nunito', system-ui, sans-serif; color: var(--ink); background: var(--bg) fixed; transition: background .4s; }
+main { max-width: 600px; margin: auto; padding: calc(22px + env(safe-area-inset-top)) 16px 120px; display: grid; gap: 16px; }
+.top { display: flex; align-items: center; gap: 12px; }
+.top .guide { width: 84px; flex: none; animation: bob 3s ease-in-out infinite; }
+.top .guide svg, .tile .art svg { width: 100%; height: auto; display: block; overflow: visible; }
+@keyframes bob { 50% { transform: translateY(-6px); } }
+h1 { margin: 0; font: 700 clamp(1.9rem, 7.4vw, 2.5rem)/1.1 var(--head); color: var(--on-bg); }
+body.theme-sailor h1 { font-weight: 400; }
+.lead { margin: 6px 0 0; font-weight: 600; color: var(--on-bg); opacity: .9; }
+h2 { margin: 0; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
+h2 .n { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: .8rem; flex: none; }
+.box { background: rgba(255, 255, 255, .96); border-radius: 20px; padding: 18px; display: grid; gap: 12px;
+  box-shadow: 0 10px 30px rgba(30, 50, 90, .14); border: 1px solid rgba(255,255,255,.8); }
+label, .lbl { font-weight: 800; font-size: .95rem; }
+.field { display: grid; gap: 5px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+input[type=text], input[type=date], input[type=time], textarea, select {
+  width: 100%; font: inherit; font-weight: 600; color: inherit; background: #fff;
+  border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-height: 44px; }
+input:focus, textarea:focus, select:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+textarea { min-height: 84px; resize: vertical; }
+button, .btn { font: inherit; font-weight: 800; border: 0; border-radius: 999px; padding: 10px 16px; min-height: 42px;
+  background: var(--soft); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
+button:hover, .btn:hover { filter: brightness(.96); }
+button:disabled { opacity: .5; cursor: default; }
+.primary { background: var(--accent); color: #fff; font-size: 1.08rem; padding: 14px 20px; }
+.primary:hover { background: var(--accent-deep); filter: none; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.thumb { width: 150px; aspect-ratio: 1; object-fit: cover; border: 8px solid #fff; border-bottom-width: 26px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.18); transform: rotate(-3deg); display: none; }
+audio { width: 100%; display: none; }
+.hint { font-size: .86rem; opacity: .8; margin: 0; }
+.rec-on { background: var(--accent); color: #fff; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+.rec-on .dot { animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .2; } }
+.error { color: #b3261e; font-weight: 800; margin: 0; background: #fff; padding: 10px 14px; border-radius: 12px; }
+.progress { height: 8px; background: rgba(255,255,255,.7); border-radius: 99px; overflow: hidden; display: none; }
+.progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+
+/* theme picker */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tile { position: relative; display: grid; gap: 6px; align-content: start; text-align: left; padding: 0 0 10px; border-radius: 16px; overflow: hidden;
+  background: #fff; border: 2.5px solid var(--line); cursor: pointer; font-weight: 600; min-height: 0; color: var(--ink); }
+.tile:hover { filter: none; border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.tile[aria-checked="true"] { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+.tile[aria-checked="true"]::after { content: "✓"; position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent); color: #fff; font-size: .8rem; font-weight: 800; }
+.tile .art { height: 92px; display: grid; place-items: center; padding: 6px 0 0; }
+.tile .art > div { width: 62px; }
+.tile[data-theme="teddy"] .art { background: linear-gradient(180deg, #bfe0f5, #fff6e6); }
+.tile[data-theme="space"] .art { background: linear-gradient(180deg, #0f1638, #34407a); }
+.tile[data-theme="sailor"] .art { background: linear-gradient(180deg, #8fd3e8, #fde3c8); }
+.tile b { padding: 0 10px; font-size: .95rem; line-height: 1.2; }
+.tile small { padding: 0 10px; font-size: .76rem; opacity: .75; line-height: 1.3; }
+.sw { display: flex; gap: 4px; padding: 0 10px; }
+.sw i { width: 12px; height: 12px; border-radius: 50%; }
+.tile-links { display: flex; gap: 12px; flex-wrap: wrap; font-size: .85rem; font-weight: 700; }
+.tile-links a { color: var(--accent-deep); }
+.notice { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; padding: 10px 12px; border-radius: 12px; background: var(--soft); font-size: .9rem; font-weight: 700; }
+
+/* story pages */
+.slides { display: grid; gap: 12px; }
+.slide-item { border: 1.5px solid var(--line); border-radius: 16px; padding: 12px; display: grid; gap: 8px; background: #fff; }
+.slide-head { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.slide-head .num { font-weight: 800; color: var(--accent-deep); flex: 1; }
+.slide-item select { min-height: 42px; padding: 6px 10px; }
+.icon { width: 40px; height: 40px; min-height: 40px; padding: 0; font-size: 1rem; }
+.slide-item textarea { min-height: 76px; }
+
+.actions-bar { position: sticky; bottom: calc(10px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr 1.6fr; gap: 10px;
+  padding: 10px; border-radius: 22px; background: rgba(255, 255, 255, .92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(30, 50, 90, .2); z-index: 5; }
+.done { display: none; border: 2px solid var(--accent); }
+.done.show { display: grid; }
+.link { display: flex; gap: 6px; }
+.link input { flex: 1; min-width: 0; font-size: .9rem; }
+.whats { background: #d6f5e3; }
+.credit { text-align: center; font-size: .85rem; font-weight: 700; color: var(--on-bg); opacity: .85; margin: 0; }
+.credit a { color: inherit; }
+:focus-visible { outline: 3px solid #3d7bd9; outline-offset: 2px; }
+@media (max-width: 460px) { .two { grid-template-columns: 1fr; } .tile small { display: none; } .tile .art { height: 78px; } .tile .art > div { width: 52px; } }
+@media (prefers-reduced-motion: reduce) { .top .guide, .rec-on .dot { animation: none; } body { transition: none; } }
+</style>
+</head>
+<body class="theme-teddy">
+<main>
+  <div class="top">
+    <div class="guide" id="topGuide" aria-hidden="true"></div>
+    <div>
+      <h1 id="heading">Make your baby shower card</h1>
+      <p class="lead" id="lead">Pick a theme, write your story, add a photo and a voice note, then save to get a link to share.</p>
+    </div>
+  </div>
+
+  <section class="box" aria-labelledby="h-theme">
+    <h2 id="h-theme"><span class="n">1</span> Choose a theme</h2>
+    <div class="tiles" id="tiles" role="radiogroup" aria-labelledby="h-theme"></div>
+    <div class="notice" id="sampleNotice" hidden>
+      <span id="sampleText">Your words were kept.</span>
+      <button type="button" id="useSample">Use this theme's sample words</button>
+    </div>
+    <div class="tile-links"><a id="sampleLink" href="/?theme=teddy" target="_blank" rel="noopener">👀 Watch a sample of this theme</a></div>
+  </section>
+
+  <section class="box" aria-labelledby="h-words">
+    <h2 id="h-words"><span class="n">2</span> Title &amp; name</h2>
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" id="title" maxlength="120">
+    </div>
+    <div class="field">
+      <label for="babyName">Baby's name (optional)</label>
+      <input type="text" id="babyName" maxlength="60" placeholder="Leave empty if it's a secret">
+    </div>
+  </section>
+
+  <section class="box" aria-labelledby="h-slides">
+    <h2 id="h-slides"><span class="n">3</span> Story pages</h2>
+    <p class="hint" id="slidesHint">Each page appears as guests scroll, delivered by the guide. Pick how its words appear.</p>
+    <div class="slides" id="slides"></div>
+    <div class="row"><button type="button" id="addSlide">＋ Add a page</button><span class="hint" id="slideCount"></span></div>
+  </section>
+
+  <section class="box" aria-labelledby="h-event">
+    <h2 id="h-event"><span class="n">4</span> Event details</h2>
+    <p class="hint">Leave these empty to skip the invitation page.</p>
+    <div class="two">
+      <div class="field"><label for="date">Date</label><input type="date" id="date"></div>
+      <div class="field"><label for="time">Time</label><input type="time" id="time"></div>
+    </div>
+    <div class="field">
+      <label for="venue">Place</label>
+      <input type="text" id="venue" maxlength="160" placeholder="e.g. The Garden Hall, 12 Park Road">
+    </div>
+  </section>
+
+  <section class="box" aria-labelledby="h-wishes">
+    <h2 id="h-wishes"><span class="n">5</span> Wishes for him</h2>
+    <div class="field">
+      <label for="wishes">One wish per line (up to 6)</label>
+      <textarea id="wishes" maxlength="600" style="min-height:130px"></textarea>
+    </div>
+  </section>
+
+  <section class="box" aria-labelledby="h-photo">
+    <h2 id="h-photo"><span class="n">6</span> Photo</h2>
+    <div class="row">
+      <label class="btn" for="photoIn">📷 Choose a photo</label>
+      <input type="file" id="photoIn" accept="image/*">
+      <button id="photoClear" type="button" hidden>Remove</button>
+    </div>
+    <img class="thumb" id="thumb" alt="Chosen photo">
+    <div class="field">
+      <label for="caption">Photo caption (optional)</label>
+      <input type="text" id="caption" maxlength="80" placeholder="e.g. Our little bump!">
+    </div>
+    <p class="hint">The photo drops in on a ribbon and develops like a real polaroid. Guests can tap it to see it big.</p>
+  </section>
+
+  <section class="box" aria-labelledby="h-voice">
+    <h2 id="h-voice"><span class="n">7</span> Voice-over</h2>
+    <div class="row">
+      <button id="rec" type="button"><span class="dot"></span><span id="recLabel">Record</span></button>
+      <label class="btn" for="audIn">🎵 Upload audio or song</label>
+      <input type="file" id="audIn" accept="audio/*">
+      <button id="audClear" type="button" hidden>Remove</button>
+    </div>
+    <audio id="player" controls playsinline></audio>
+    <p class="hint" id="status" role="status"></p>
+    <div class="field">
+      <label for="tts">Or type text for a computer voice</label>
+      <textarea id="tts" maxlength="1000"></textarea>
+    </div>
+    <div class="row"><button id="ttsTry" type="button">▶ Hear the computer voice</button></div>
+    <p class="hint">A recording or uploaded audio plays first. The computer voice is used only when there is no audio. Gentle sound effects play too, and guests can switch them off.</p>
+  </section>
+
+  <section class="box" aria-labelledby="h-from">
+    <h2 id="h-from"><span class="n">8</span> Signed by</h2>
+    <div class="field">
+      <label for="from">From</label>
+      <input type="text" id="from" maxlength="120">
+    </div>
+  </section>
+
+  <div class="progress" id="progress"><i></i></div>
+  <p class="error" id="error" role="alert" hidden></p>
+
+  <section class="box done" id="done" aria-labelledby="h-done">
+    <h2 id="h-done">🎉 Your card is saved</h2>
+    <div class="field">
+      <label for="shareLink">Share this link</label>
+      <div class="link"><input type="text" id="shareLink" readonly><button type="button" data-copy="shareLink">Copy</button></div>
+    </div>
+    <div class="row">
+      <a class="btn primary" id="openCard">Open my card</a>
+      <a class="btn whats" id="whatsapp" target="_blank" rel="noopener">Send on WhatsApp</a>
+    </div>
+    <div class="field">
+      <label for="editLink">Your private edit link</label>
+      <div class="link"><input type="text" id="editLink" readonly><button type="button" data-copy="editLink">Copy</button></div>
+      <p class="hint">Keep this one to yourself. Anyone with it can change the card. This browser remembers it for you.</p>
+    </div>
+  </section>
+
+  <p class="credit" id="credit" hidden></p>
+
+  <div class="actions-bar">
+    <button type="button" id="preview">👀 Preview</button>
+    <button class="primary" id="go" type="button">Save &amp; get my link</button>
+  </div>
+</main>
+
+<template id="slideTpl">
+  <div class="slide-item">
+    <div class="slide-head">
+      <span class="num"></span>
+      <button type="button" class="icon up" aria-label="Move page up">↑</button>
+      <button type="button" class="icon down" aria-label="Move page down">↓</button>
+      <button type="button" class="icon del" aria-label="Remove page">✕</button>
+    </div>
+    <select aria-label="How the words appear">
+      <option value="write">✍️ Written by magic, letter by letter</option>
+      <option value="rise">🎈 Words float up</option>
+      <option value="unfurl">📜 Unrolling scroll</option>
+      <option value="glow">✨ Glowing words</option>
+    </select>
+    <textarea maxlength="500" aria-label="Page text"></textarea>
+  </div>
+</template>
+
+<script src="/brand.js"></script>
+<script src="/themes.js"></script>
+<script src="/voice.js"></script>
+<script src="/create.js"></script>
+</body>
+</html>

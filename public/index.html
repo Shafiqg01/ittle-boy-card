@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Baby Card</title>
+  <meta name="theme-color" content="#bfe0f5">
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="locked">
+  <!-- ===== Background: sky, moon, stars canvas, scenery (filled in by the theme) ===== -->
+  <div class="sky" aria-hidden="true">
+    <div class="sky-night" id="skyNight"></div>
+    <div class="moon" id="moon"></div>
+  </div>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="rays" id="rays" aria-hidden="true"></div>
+  <div class="land" id="land" aria-hidden="true"></div>
+
+  <!-- ===== Opening screen (envelope / rocket launch / message in a bottle) ===== -->
+  <main class="scene" id="scene">
+    <p class="scene-eyebrow" id="sceneEyebrow"></p>
+    <div class="guide-spot" id="guideSpot" aria-hidden="true"></div>
+    <div class="stage" id="stage"></div>
+    <p class="hint" id="hint">Loading your card…</p>
+  </main>
+
+  <!-- ===== The story you scroll through (filled in by app.js) ===== -->
+  <div class="story" id="story" hidden>
+    <section class="sec intro" id="secIntro">
+      <p class="eyebrow" id="onceUpon"></p>
+      <h1 id="title"></h1>
+      <p class="baby-name" id="babyName" hidden></p>
+      <div class="scroll-cue" id="scrollCue"><span>Scroll for more</span><i aria-hidden="true"></i></div>
+    </section>
+
+    <div id="slides"></div>
+
+    <section class="sec photo-sec" id="secPhoto" hidden>
+      <div class="ribbon-hang" aria-hidden="true"></div>
+      <figure class="polaroid" id="polaroid">
+        <span class="pol-top" id="polTop" aria-hidden="true"></span>
+        <button class="frame" id="photoBtn" aria-label="View the photo larger">
+          <img id="photo" alt="">
+          <span class="shine" aria-hidden="true"></span>
+        </button>
+        <figcaption id="caption"></figcaption>
+      </figure>
+    </section>
+
+    <section class="sec details" id="secDetails" hidden>
+      <div class="panel">
+        <h2>You're invited</h2>
+        <ul class="tags" id="tags"></ul>
+        <div class="btn-row">
+          <a class="btn" id="calBtn" download="baby-shower.ics" hidden>📅 Add to calendar</a>
+          <a class="btn" id="mapBtn" target="_blank" rel="noopener" hidden>📍 Directions</a>
+        </div>
+        <a class="small-link" id="gcalBtn" target="_blank" rel="noopener" hidden>or add to Google Calendar</a>
+      </div>
+    </section>
+
+    <section class="sec wishes" id="secWishes" hidden>
+      <div class="panel">
+        <h2 id="wishesTitle"></h2>
+        <ul class="wish-list" id="wishList"></ul>
+      </div>
+    </section>
+
+    <section class="sec closing" id="secClosing">
+      <div class="panel">
+        <p class="closing-line" id="closingLine"></p>
+        <p class="from" id="from"></p>
+        <div class="actions" id="actions">
+          <button class="btn" id="replay">↺ Replay</button>
+          <button class="btn" id="share">Share</button>
+          <a class="btn" id="edit" hidden>✎ Edit</a>
+          <a class="btn" id="makeOwn" href="/create.html">✎ Make your own</a>
+        </div>
+        <p class="credit" id="credit" hidden></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== Characters ===== -->
+  <div class="actor hero" id="hero" aria-hidden="true"></div>
+  <div class="actor guide" id="guide" aria-hidden="true"><div class="guide-flip" id="guideFlip"><div class="guide-bob" id="guideBob"></div></div></div>
+  <div class="actor companion" id="companion" aria-hidden="true"></div>
+  <div class="flash" id="flash" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <button class="voice-fab" id="voiceBtn" hidden><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="voiceLabel">Play voice</span></button>
+  <button class="mute-fab" id="muteBtn" aria-label="Turn sound effects off" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path class="cross" d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div class="preview-banner" id="previewBanner" hidden>Preview · not saved yet</div>
+  <nav class="theme-try" id="themeTry" hidden aria-label="Try another theme"></nav>
+
+  <!-- Full-screen photo view -->
+  <div class="lightbox" id="lightbox" hidden>
+    <figure>
+      <img id="lightImg" alt="">
+      <figcaption id="lightCap"></figcaption>
+    </figure>
+    <button class="close" id="lightClose" aria-label="Close photo">✕</button>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="/vendor/gsap.min.js"></script>
+  <script src="/vendor/ScrollTrigger.min.js"></script>
+  <script src="/brand.js"></script>
+  <script src="/themes.js"></script>
+  <script src="/voice.js"></script>
+  <script src="/sfx.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
